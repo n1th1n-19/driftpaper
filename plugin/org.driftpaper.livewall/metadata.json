@@ -1,0 +1,5 @@
+{
+  "KPackageStructure": "Plasma/Wallpaper",
+  "KPlugin": { "Id": "org.driftpaper.livewall", "Name": "Live Wallpaper", "Description": "Loops a video behind the desktop; pauses when a window is maximized or on battery", "Icon": "preferences-desktop-wallpaper", "License": "MIT", "Version": "1.0" },
+  "X-Plasma-API-Minimum-Version": "6.0"
+}
