@@ -24,7 +24,6 @@ WallpaperItem {
     TaskManager.TasksModel {
         id: tasks
         filterByScreen: true
-        screenGeometry: Qt.rect(Screen.virtualX, Screen.virtualY, Screen.width, Screen.height)
         filterMinimized: true
         groupMode: TaskManager.TasksModel.GroupDisabled
         onDataChanged: root.recount()
@@ -55,5 +54,20 @@ WallpaperItem {
         fillMode: VideoOutput.PreserveAspectCrop
     }
     onShouldPauseChanged: shouldPause ? player.pause() : player.play()
-    Component.onCompleted: { recount(); if (video && !shouldPause) player.play() }
+    // Screen.virtualX/Y don't notify, so a binding on them goes stale and the second monitor ends up
+    // watching the first monitor's windows. Look this screen up by name and set the rect explicitly.
+    // Screen.name is only right at load time (it later reports the primary screen), so remember it once.
+    property string myScreen: ""
+    function updateGeometry() {
+        if (!myScreen) myScreen = Screen.name;
+        for (const s of Qt.application.screens) {
+            if (s.name === myScreen) {
+                tasks.screenGeometry = Qt.rect(s.virtualX, s.virtualY, s.width, s.height);
+                break;
+            }
+        }
+        recount();
+    }
+    Connections { target: Qt.application; function onScreensChanged() { root.updateGeometry() } }
+    Component.onCompleted: { updateGeometry(); if (video && !shouldPause) player.play() }
 }
