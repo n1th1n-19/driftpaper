@@ -134,7 +134,7 @@ def update(check=False, force=False):
     latest = latest_sha()
     if cur == latest and not force:
         print(f"Already up to date (version {__version__}, {latest[:7]})."); return
-    print(f"Update available: {cur[:7] if cur else 'unknown'} -> {latest[:7]}")
+    print(f"Reinstalling {latest[:7]}" if cur == latest else f"Update available: {cur[:7] if cur else 'unknown'} -> {latest[:7]}")
     if check:
         return
     url = os.environ.get("DRIFTPAPER_TARBALL") or f"https://github.com/{core.REPO}/archive/refs/heads/main.tar.gz"
