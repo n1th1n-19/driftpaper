@@ -4,6 +4,7 @@
   <group name="General">
     <entry name="Video" type="String"><default></default></entry>
     <entry name="PauseMaximized" type="Bool"><default>true</default></entry>
+    <entry name="PauseAllScreens" type="Bool"><default>false</default></entry>
     <entry name="PauseOnBattery" type="Bool"><default>true</default></entry>
   </group>
 </kcfg>

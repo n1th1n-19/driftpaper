@@ -23,7 +23,8 @@ WallpaperItem {
     // maximized/fullscreen, non-minimized window on this screen
     TaskManager.TasksModel {
         id: tasks
-        filterByScreen: true
+        // PauseAllScreens: a maximized window on any monitor pauses every monitor
+        filterByScreen: !root.configuration.PauseAllScreens
         filterMinimized: true
         groupMode: TaskManager.TasksModel.GroupDisabled
         onDataChanged: root.recount()

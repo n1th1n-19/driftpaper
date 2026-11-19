@@ -57,7 +57,7 @@ def cmd_add(a):
 
 
 def _apply(f, a):
-    live, scr = core.apply(f, _screen(a.screen), not a.no_pause_max, not a.no_pause_battery)
+    live, scr = core.apply(f, _screen(a.screen), not a.no_pause_max, not a.no_pause_battery, a.pause_all)
     print(f"applied {'live' if live else 'static'} wallpaper {f.name} to screen(s) {', '.join(str(s + 1) for s in scr)}")
 
 
@@ -132,6 +132,7 @@ def build():
 
     def pauses(sp):
         sp.add_argument("--no-pause-max", action="store_true", help="live: keep playing under maximized windows")
+        sp.add_argument("--pause-all", action="store_true", help="live: a maximized window on ANY monitor pauses every monitor")
         sp.add_argument("--no-pause-battery", action="store_true", help="live: keep playing on battery")
 
     add("gui", cmd_gui, "open the graphical app")

@@ -33,13 +33,14 @@ class Studio(QWidget):
         except core.Error:  # plasmashell unreachable: library still usable, apply will report
             pass
         self.pause_max = QCheckBox("Pause live when a window is maximized"); self.pause_max.setChecked(True)
+        self.pause_all = QCheckBox("...on any monitor (pause all screens)"); self.pause_all.setChecked(False)
         self.pause_bat = QCheckBox("Pause live on battery"); self.pause_bat.setChecked(True)
         self.msg = QLabel("Double-click a wallpaper to apply. Drop files here to add.")
 
         bar = QHBoxLayout()
         for w in (add, rm): bar.addWidget(w)
         bar.addStretch(); bar.addWidget(QLabel("Apply to:")); bar.addWidget(self.target); bar.addWidget(ap)
-        opts = QHBoxLayout(); opts.addWidget(self.pause_max); opts.addWidget(self.pause_bat); opts.addStretch()
+        opts = QHBoxLayout(); opts.addWidget(self.pause_max); opts.addWidget(self.pause_all); opts.addWidget(self.pause_bat); opts.addStretch()
         lay = QVBoxLayout(self)
         lay.addLayout(bar); lay.addWidget(self.grid); lay.addLayout(opts); lay.addWidget(self.msg)
         self.reload()
@@ -89,7 +90,7 @@ class Studio(QWidget):
             self.msg.setText("Select a wallpaper first."); return
         f = Path(it.data(Qt.UserRole))
         try:
-            live, _ = core.apply(f, self.target.currentData(), self.pause_max.isChecked(), self.pause_bat.isChecked())
+            live, _ = core.apply(f, self.target.currentData(), self.pause_max.isChecked(), self.pause_bat.isChecked(), self.pause_all.isChecked())
             self.msg.setText(f"Applied {'live' if live else 'static'} wallpaper: {f.name}")
         except core.Error as e:
             self.msg.setText(f"Failed: {e}")

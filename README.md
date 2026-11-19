@@ -56,7 +56,7 @@ Live wallpapers pause when a window is maximized or fullscreen on that screen an
 
 ## Notes and limits
 
-- Video is muted. The plugin has no settings page, the app and CLI write its config (`Video`, `PauseMaximized`, `PauseOnBattery`) directly.
+- Video is muted. The plugin has no settings page, the app and CLI write its config (`Video`, `PauseMaximized`, `PauseAllScreens`, `PauseOnBattery`) directly.
 - Memory and CPU depend on the clip. 1080p at 30 fps, short loops, are light. Avoid 4K/60 fps.
 - Hardware decoding depends on your Qt Multimedia backend and GPU, hybrid-graphics laptops may fall back to the CPU.
 - `update` tracks the `main` branch of this repo, there are no tagged releases yet.

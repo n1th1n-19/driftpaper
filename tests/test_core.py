@@ -25,5 +25,6 @@ core.sys.stderr = sys.__stderr__
 
 a = cli.build().parse_args(["apply", "sky", "--screen", "2", "--no-pause-max"])
 assert (a.name, a.screen, a.no_pause_max, a.no_pause_battery) == ("sky", 2, True, False)
+assert cli.build().parse_args(["apply", "sky", "--pause-all"]).pause_all
 assert cli.build().parse_args(["list", "--live"]).kind == "live"
 print("ok")

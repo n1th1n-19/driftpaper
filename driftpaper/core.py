@@ -189,11 +189,11 @@ def remove(f: Path):
 
 
 # ---------- apply ----------
-def apply(f: Path, screen=None, pause_max=True, pause_battery=True):
+def apply(f: Path, screen=None, pause_max=True, pause_battery=True, pause_all=False):
     """screen: 0-based index or None for all. Remembers what was there so `back` can undo."""
     live = kind(f) == "live"
     plugin = LIVE_PLUGIN if live else IMAGE_PLUGIN
-    cfg = ({"Video": f.as_uri(), "PauseMaximized": pause_max, "PauseOnBattery": pause_battery}
+    cfg = ({"Video": f.as_uri(), "PauseMaximized": pause_max, "PauseAllScreens": pause_all, "PauseOnBattery": pause_battery}
            if live else {"Image": f.as_uri()})
     cur = status()
     if screen is not None and screen not in [d["screen"] for d in cur]:
